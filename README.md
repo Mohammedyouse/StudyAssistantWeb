@@ -2,7 +2,7 @@
 
 > 🚀 An AI-powered study companion to boost productivity, manage tasks, and enhance learning efficiency.
 
-[Live Demo](https://mohammed-study-assistant.netlify.app)
+[Live Demo](https://agent-6a89e66e330442d6--mohammed-study-assistant.netlify.app)
 [GitHub Repo](https://github.com/Mohammedyouse/StudyAssistantWeb)
 
 
@@ -130,7 +130,7 @@ This project was developed for educational purposes and explores AI-powered prod
 The application is deployed using Netlify.
 
 Live Demo:
-https://mohammed-study-assistant.netlify.app
+https://agent-6a89e66e330442d6--mohammed-study-assistant.netlify.app
 
 ## 👨‍💻 Developer
 
