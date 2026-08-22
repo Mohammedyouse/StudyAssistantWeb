@@ -48,7 +48,7 @@ export default function Analytics() {
     const minutes = studyTime
       .filter(session => session.date === dateStr)
       .reduce((acc, session) => acc + session.durationMinutes, 0);
-    
+
     return {
       date: format(date, 'MMM d'),
       minutes,
@@ -68,7 +68,7 @@ export default function Analytics() {
         <p className="text-red-600">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
           Retry
         </button>
@@ -109,9 +109,9 @@ export default function Analytics() {
         <div className="h-64 flex items-end gap-4">
           {last7Days.map((day, index) => (
             <div key={index} className="flex-1 flex flex-col items-center gap-2">
-              <div 
+              <div
                 className="w-full bg-indigo-100 rounded-t-lg relative group"
-                style={{ 
+                style={{
                   height: `${(day.minutes / (Math.max(...last7Days.map(d => d.minutes)) || 1)) * 100}%`,
                   minHeight: '20px'
                 }}

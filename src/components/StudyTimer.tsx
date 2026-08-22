@@ -67,7 +67,7 @@ export default function StudyTimer({ onSessionComplete, onStart, onStop }: Study
         } else {
           setSeconds(seconds - 1);
         }
-        setSessionMinutes(prev => prev + 1/60);
+        setSessionMinutes(prev => prev + 1 / 60);
       }, 1000);
     }
 
@@ -108,15 +108,15 @@ export default function StudyTimer({ onSessionComplete, onStart, onStop }: Study
           {soundEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
         </button>
       </div>
-      
+
       <div className="text-5xl font-bold text-center mb-6">
         {formatTime(minutes, seconds)}
       </div>
-      
+
       <div className="flex justify-center gap-4">
         <button
           onClick={toggleTimer}
-          className="p-3 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-colors"
+          className="p-3 rounded-full bg-indigo-100 text-blue-600 hover:bg-indigo-200 transition-colors"
         >
           {isActive ? <Pause size={24} /> : <Play size={24} />}
         </button>

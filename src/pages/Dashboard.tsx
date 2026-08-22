@@ -73,16 +73,16 @@ export default function Dashboard() {
         subject: selectedSubject || 'General',
       };
       setStudyTime(prev => [...prev, newSession]);
-      
+
       // Update streak
       const today = new Date();
       const lastStudy = new Date(streak.lastStudyDate);
-      
+
       today.setHours(0, 0, 0, 0);
       lastStudy.setHours(0, 0, 0, 0);
-      
+
       const timeDiff = Math.floor((today.getTime() - lastStudy.getTime()) / (1000 * 60 * 60 * 24));
-      
+
       if (timeDiff <= 1) {
         if (timeDiff === 1 || (timeDiff === 0 && streak.currentStreak === 0)) {
           setStreak(prev => ({
@@ -122,7 +122,7 @@ export default function Dashboard() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
-          <GraduationCap className="text-indigo-600" size={28} />
+          <GraduationCap className="text-blue-600" size={28} />
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
         </div>
         <FocusMode isStudyActive={isStudyActive} />
@@ -149,7 +149,7 @@ export default function Dashboard() {
                 </option>
               ))}
             </select>
-            <PomodoroTimer 
+            <PomodoroTimer
               onSessionComplete={handleStudySessionComplete}
               onStart={() => setIsStudyActive(true)}
               onStop={() => setIsStudyActive(false)}

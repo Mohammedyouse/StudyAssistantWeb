@@ -130,8 +130,8 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
               <input
                 type="number"
                 value={formData.estimatedMinutes}
-                onChange={e => setFormData(prev => ({ 
-                  ...prev, 
+                onChange={e => setFormData(prev => ({
+                  ...prev,
                   estimatedMinutes: Math.max(1, parseInt(e.target.value) || 1)
                 }))}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
@@ -150,7 +150,7 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+              className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
             >
               {initialData ? 'Update Task' : 'Create Task'}
             </button>

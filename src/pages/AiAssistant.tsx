@@ -99,7 +99,7 @@ const validateFile = (file: File): boolean => {
 const SpeechFeedback = ({ confidence, isRecording }: { confidence: number; isRecording: boolean }) => {
   const confidencePercentage = Math.round(confidence * 100);
   const barColor = confidence > 0.8 ? 'bg-green-500' : confidence > 0.6 ? 'bg-yellow-500' : 'bg-red-500';
-  
+
   return (
     <div className="flex flex-col space-y-2 mb-4">
       <div className="flex items-center space-x-2">
@@ -166,15 +166,15 @@ export default function AiAssistant() {
   const handleSend = async () => {
     const sanitizedInput = sanitizeInput(input.trim());
     if (!sanitizedInput) return;
-    
+
     if (!GEMINI_API_KEY) {
       toast.error('API key not configured - contact administrator');
       return;
     }
 
-    const userMessage: Message = { 
-      role: 'user', 
-      content: [{ type: 'text', content: sanitizedInput }] 
+    const userMessage: Message = {
+      role: 'user',
+      content: [{ type: 'text', content: sanitizedInput }]
     };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
@@ -182,16 +182,16 @@ export default function AiAssistant() {
     setIsLoading(true);
 
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
       const result = await model.generateContent(sanitizedInput);
       const response = await result.response;
       const text = response.text();
 
       // Sanitize AI response
       const sanitizedResponse = sanitizeInput(text);
-      
-      const parsedResponse: Message = { 
-        role: 'assistant', 
+
+      const parsedResponse: Message = {
+        role: 'assistant',
         content: parseAIResponse(addEmojisToText(sanitizedResponse))
       };
       setMessages([...newMessages, parsedResponse]);
@@ -216,11 +216,11 @@ export default function AiAssistant() {
       for (let j = i; j < Math.min(i + CHUNK_SIZE, numPages); j++) {
         pagePromises.push(processPage(pdf, j + 1));
       }
-      
+
       const chunkResults = await Promise.all(pagePromises);
       textContent.push(...chunkResults);
       processedPages += pagePromises.length;
-      
+
       // Update progress
       const progress = Math.round((processedPages / numPages) * 100);
       toast.success(`Processing PDF: ${progress}% complete`);
@@ -233,7 +233,7 @@ export default function AiAssistant() {
     try {
       const page = await pdf.getPage(pageNum);
       const content = await page.getTextContent();
-      
+
       // Enhanced text extraction with layout preservation
       const textItems = content.items.map((item: any) => ({
         text: item.str,
@@ -309,13 +309,13 @@ export default function AiAssistant() {
 
       // Sanitize extracted text
       text = sanitizeInput(text.trim().replace(/\s+/g, ' '));
-      
+
       // Limit text length for security
       const maxLength = 4000;
-      const truncatedText = text.length > maxLength 
+      const truncatedText = text.length > maxLength
         ? text.slice(0, maxLength) + '... (text truncated for security)'
         : text;
-      
+
       setInput(`Please analyze this text: ${truncatedText}`);
       toast.success('Document processed securely');
     } catch (error) {
@@ -382,7 +382,7 @@ export default function AiAssistant() {
 
   const addEmojisToText = (text: string): string => {
     let result = text;
-    
+
     // Add emojis based on keywords
     Object.entries(EMOJI_MAP).forEach(([keyword, emoji]) => {
       const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
@@ -407,13 +407,13 @@ export default function AiAssistant() {
   const processSpeechText = (text: string): string => {
     // Sanitize input first
     const sanitizedText = sanitizeInput(text);
-    
+
     // Split into sentences (keeping existing punctuation)
     const sentences = sanitizedText.split(/(?<=[.!?])\s+|\s+(?=[A-Z])/).filter(Boolean);
-    
+
     const processedSentences = sentences.map(sentence => {
       let processed = sentence.trim();
-      
+
       // Add appropriate punctuation
       if (!processed.match(/[.!?]$/)) {
         if (QUESTION_WORDS.some(word => processed.toLowerCase().startsWith(word))) {
@@ -430,10 +430,10 @@ export default function AiAssistant() {
         .replace(/\s+/g, ' ')
         .replace(/[^\w\s.,!?-]/g, '')
         .trim();
-      
+
       return processed;
     });
-    
+
     return processedSentences.join(' ').trim();
   };
 
@@ -560,7 +560,7 @@ export default function AiAssistant() {
 
         recognition.current.onerror = (event: SpeechRecognitionErrorEvent) => {
           console.error('Speech recognition error:', event.error, event.message);
-          
+
           const errorMessages: Record<SpeechRecognitionErrorEvent['error'], string> = {
             'no-speech': 'No speech detected. Please try speaking again.',
             'audio-capture': 'No microphone detected. Please check your microphone.',
@@ -572,7 +572,7 @@ export default function AiAssistant() {
 
           const message = errorMessages[event.error] || 'Speech recognition error occurred';
           toast.error(message);
-          
+
           setIsRecording(false);
           recognition.current?.abort();
         };
@@ -599,7 +599,7 @@ export default function AiAssistant() {
       toast.success('Recording stopped');
     } else {
       setInterimTranscript('');
-      
+
       recognition.current.onstart = () => {
         setIsRecording(true);
         toast.success('Recording started');
@@ -619,11 +619,11 @@ export default function AiAssistant() {
             if (event.results[i].isFinal) {
               const processedTranscript = processSpeechText(transcript);
               final += processedTranscript + ' ';
-              
+
               // Check alternatives for better accuracy
               let bestTranscript = processedTranscript;
               let bestConfidence = confidence;
-              
+
               for (let j = 1; j < event.results[i].length; j++) {
                 const alternative = event.results[i][j];
                 if (alternative.confidence > bestConfidence) {
@@ -631,7 +631,7 @@ export default function AiAssistant() {
                   bestConfidence = alternative.confidence;
                 }
               }
-              
+
               final = final.replace(processedTranscript, bestTranscript);
             } else {
               const cleanTranscript = transcript
@@ -644,7 +644,7 @@ export default function AiAssistant() {
 
           setTranscriptionConfidence(maxConfidence);
           setInterimTranscript(interim.trim());
-          
+
           // Accumulate final transcript
           setFinalTranscript(prev => {
             const newText = (prev + ' ' + final).trim();
@@ -688,33 +688,33 @@ export default function AiAssistant() {
       .map(text => sanitizeInput(text))
       .join(' ')
       .trim();
-      
+
     if (!completeText) {
       toast.error('No text to save');
       return;
     }
-    
+
     try {
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       const safeFileName = `studyassistant-notes-${timestamp}.txt`.replace(/[^\w.-]/g, '');
-      
+
       const formattedText = `StudyAssistant Lecture Notes\nRecorded: ${new Date().toLocaleString()}\n\n${completeText}`;
-      
+
       // Create and download file securely
       const blob = new Blob([formattedText], { type: 'text/plain;charset=utf-8' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
       link.download = safeFileName;
-      
+
       // Append to body temporarily and trigger download
       document.body.appendChild(link);
       link.click();
-      
+
       // Clean up
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
-      
+
       // Clear sensitive data
       setTranscribedText('');
       setFinalTranscript('');
@@ -758,9 +758,8 @@ export default function AiAssistant() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={toggleRecording}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${
-                  isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
-                } text-white transition-colors`}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
+                  } text-white transition-colors`}
                 disabled={isProcessingFile}
               >
                 {isRecording ? (
@@ -812,11 +811,10 @@ export default function AiAssistant() {
           />
           <label
             htmlFor="file-upload"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer ${
-              isProcessingFile
-                ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer ${isProcessingFile
+              ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+              }`}
           >
             {isProcessingFile ? (
               <>
@@ -847,11 +845,10 @@ export default function AiAssistant() {
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] rounded-lg p-4 ${
-                  message.role === 'user'
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100'
-                }`}
+                className={`max-w-[85%] rounded-lg p-4 ${message.role === 'user'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100'
+                  }`}
               >
                 <MessageContent content={message.content} />
               </div>
@@ -880,7 +877,7 @@ export default function AiAssistant() {
           <button
             onClick={handleSend}
             disabled={isLoading || !input.trim()}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send
           </button>

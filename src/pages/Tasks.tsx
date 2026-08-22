@@ -10,7 +10,7 @@ export default function Tasks() {
     const saved = localStorage.getItem('tasks');
     return saved ? JSON.parse(saved) : [];
   });
-  
+
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
@@ -62,7 +62,7 @@ export default function Tasks() {
             setEditingTask(null);
             setShowForm(true);
           }}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
           New Task

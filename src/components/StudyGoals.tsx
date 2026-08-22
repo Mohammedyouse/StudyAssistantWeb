@@ -39,13 +39,13 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold flex items-center gap-2">
-          <Target size={20} className="text-indigo-600" />
+          <Target size={20} className="text-blue-600" />
           Study Goals
         </h3>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="text-sm text-indigo-600 hover:text-indigo-700"
+            className="text-sm text-blue-600 hover:text-blue-600"
           >
             + Add Goal
           </button>
@@ -80,8 +80,8 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
               <input
                 type="number"
                 value={formData.targetHours}
-                onChange={e => setFormData(prev => ({ 
-                  ...prev, 
+                onChange={e => setFormData(prev => ({
+                  ...prev,
                   targetHours: Math.max(1, parseInt(e.target.value) || 1)
                 }))}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
@@ -112,7 +112,7 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+              className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
             >
               Add Goal
             </button>
@@ -129,7 +129,7 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
             <div className="flex items-center gap-3">
               <button
                 onClick={() => onToggleGoal(goal.id)}
-                className="text-gray-400 hover:text-indigo-600 transition-colors"
+                className="text-gray-400 hover:text-blue-600 transition-colors"
               >
                 {goal.completed ? (
                   <CheckCircle2 className="text-green-500" />

@@ -60,10 +60,10 @@ export default function SubjectManager({
     try {
       const subjectsToDelete = subjects.filter(subject => selectedSubjects.has(subject.id));
       setDeletedSubjects(subjectsToDelete);
-      
+
       // Delete all selected subjects
       await Promise.all([...selectedSubjects].map(subjectId => onDeleteSubject(subjectId)));
-      
+
       toast.success(
         <div className="flex items-center space-x-2">
           <span>{selectedSubjects.size} subjects deleted</span>
@@ -76,7 +76,7 @@ export default function SubjectManager({
         </div>,
         { duration: 5000 }
       );
-      
+
       setSelectedSubjects(new Set());
     } catch (error) {
       console.error('Error deleting subjects:', error);
@@ -86,7 +86,7 @@ export default function SubjectManager({
 
   const handleUndoBulkDelete = async () => {
     if (!deletedSubjects.length) return;
-    
+
     try {
       // Restore all deleted subjects
       await Promise.all(deletedSubjects.map(subject => onAddSubject(subject)));
@@ -173,9 +173,8 @@ export default function SubjectManager({
                     key={color}
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, color }))}
-                    className={`w-8 h-8 rounded-full border-2 ${
-                      formData.color === color ? 'border-black' : 'border-transparent'
-                    }`}
+                    className={`w-8 h-8 rounded-full border-2 ${formData.color === color ? 'border-black' : 'border-transparent'
+                      }`}
                     style={{ backgroundColor: color }}
                   />
                 ))}
@@ -189,8 +188,8 @@ export default function SubjectManager({
               <input
                 type="number"
                 value={formData.goalHoursPerWeek}
-                onChange={e => setFormData(prev => ({ 
-                  ...prev, 
+                onChange={e => setFormData(prev => ({
+                  ...prev,
                   goalHoursPerWeek: Math.max(0, parseInt(e.target.value) || 0)
                 }))}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
@@ -200,7 +199,7 @@ export default function SubjectManager({
 
             <button
               type="submit"
-              className="w-full px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+              className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
             >
               {editingId ? 'Update Subject' : 'Add Subject'}
             </button>
@@ -261,9 +260,8 @@ export default function SubjectManager({
                 <button
                   onClick={() => handleDelete(subject.id)}
                   disabled={isDeleting === subject.id}
-                  className={`p-1 text-gray-500 hover:text-red-500 ${
-                    isDeleting === subject.id ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`p-1 text-gray-500 hover:text-red-500 ${isDeleting === subject.id ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                 >
                   <Trash2 size={16} />
                 </button>

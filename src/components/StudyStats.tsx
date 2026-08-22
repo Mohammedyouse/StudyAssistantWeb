@@ -23,7 +23,7 @@ export default function StudyStats({ sessions, subjects }: StudyStatsProps) {
         return sessions.filter(session => {
           const sessionDate = new Date(session.date);
           return sessionDate.getMonth() === now.getMonth() &&
-                 sessionDate.getFullYear() === now.getFullYear();
+            sessionDate.getFullYear() === now.getFullYear();
         });
       default:
         return sessions;
@@ -73,7 +73,7 @@ export default function StudyStats({ sessions, subjects }: StudyStatsProps) {
     <div className="bg-white p-6 rounded-xl shadow-sm border">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
-          <BarChart2 className="text-indigo-600" />
+          <BarChart2 className="text-blue-600" />
           <h3 className="font-semibold">Study Statistics</h3>
         </div>
         <div className="flex items-center gap-4">
@@ -88,7 +88,7 @@ export default function StudyStats({ sessions, subjects }: StudyStatsProps) {
           </select>
           <button
             onClick={exportStats}
-            className="flex items-center gap-2 px-3 py-1 text-sm text-indigo-600 hover:text-indigo-700"
+            className="flex items-center gap-2 px-3 py-1 text-sm text-blue-600 hover:text-blue-600"
           >
             <Download size={16} />
             Export

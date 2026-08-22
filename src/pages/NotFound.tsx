@@ -8,7 +8,7 @@ export default function NotFound() {
       <p className="text-gray-600 mb-8">Page not found</p>
       <Link
         to="/"
-        className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700"
+        className="flex items-center gap-2 text-blue-600 hover:text-blue-600"
       >
         <Home size={20} />
         Back to Dashboard

@@ -28,7 +28,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
   // Sort tasks
   const sortedTasks = [...filteredTasks].sort((a, b) => {
     let comparison = 0;
-    
+
     switch (sortField) {
       case 'dueDate':
         comparison = new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
@@ -75,10 +75,10 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
       if (!taskToDelete) {
         throw new Error('Task not found');
       }
-      
+
       await onDeleteTask(taskId);
       setDeletedTasks([taskToDelete]);
-      
+
       toast.success(
         <div className="flex items-center space-x-2">
           <span>Task deleted</span>
@@ -108,10 +108,10 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
       }
 
       setDeletedTasks(tasksToDelete);
-      
+
       // Delete all selected tasks
       await Promise.all([...selectedTasks].map(taskId => onDeleteTask(taskId)));
-      
+
       toast.success(
         <div className="flex items-center space-x-2">
           <span>{selectedTasks.size} tasks deleted</span>
@@ -124,7 +124,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
         </div>,
         { duration: 5000 }
       );
-      
+
       setSelectedTasks(new Set());
     } catch (error) {
       console.error('Error deleting tasks:', error);
@@ -134,7 +134,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
 
   const handleUndoBulkDelete = async () => {
     if (!deletedTasks.length) return;
-    
+
     try {
       // Restore all deleted tasks
       await Promise.all(deletedTasks.map(task => onTaskCreate(task)));
@@ -213,13 +213,12 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
 
         <div className="divide-y divide-gray-100">
           {sortedTasks.map(task => (
-            <div 
+            <div
               key={task.id}
-              className={`flex items-center space-x-4 p-4 rounded-lg border ${
-                task.completed
+              className={`flex items-center space-x-4 p-4 rounded-lg border ${task.completed
                   ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
                   : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'
-              }`}
+                }`}
             >
               <input
                 type="checkbox"
@@ -227,13 +226,13 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
                 onChange={() => toggleTaskSelection(task.id)}
                 className="w-4 h-4 text-blue-600"
               />
-              <button 
+              <button
                 onClick={() => onTaskComplete(task.id)}
-                className="text-gray-400 hover:text-indigo-600 transition-colors"
+                className="text-gray-400 hover:text-blue-600 transition-colors"
               >
                 {task.completed ? <CheckCircle2 className="text-green-500" /> : <Circle />}
               </button>
-              
+
               <div>
                 <h3 className={`font-medium ${task.completed ? 'line-through text-gray-400' : ''}`}>
                   {task.title}
@@ -261,9 +260,8 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
                 <button
                   onClick={() => handleDeleteTask(task.id)}
                   disabled={isDeleting === task.id}
-                  className={`ml-4 p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900 transition-colors ${
-                    isDeleting === task.id ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`ml-4 p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900 transition-colors ${isDeleting === task.id ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                 >
                   <Trash2 className="w-5 h-5" />
                 </button>

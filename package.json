@@ -1,10 +1,10 @@
 {
-  "name": "@mintahandrews/studyassistant",
+  "name": "@Mohammedyouse/studyassistant",
   "version": "0.0.0",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mintahandrews/studyassistant.git"
+    "url": "https://github.com/Mohammedyouse/StudyAssistant.git"
   },
   "scripts": {
     "dev": "vite",

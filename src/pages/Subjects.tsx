@@ -26,16 +26,16 @@ export default function Subjects() {
     const now = new Date();
     const weekStart = startOfWeek(now);
     const weekEnd = endOfWeek(now);
-    
+
     const weeklyMinutes = studySessions
       .filter(session => {
         const sessionDate = new Date(session.date);
         return session.subject === subjectName &&
-               sessionDate >= weekStart &&
-               sessionDate <= weekEnd;
+          sessionDate >= weekStart &&
+          sessionDate <= weekEnd;
       })
       .reduce((acc, session) => acc + session.durationMinutes, 0);
-    
+
     return weeklyMinutes / 60; // Convert to hours
   };
 
@@ -64,12 +64,12 @@ export default function Subjects() {
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
-          <Book className="text-indigo-600" size={28} />
+          <Book className="text-blue-600" size={28} />
           <h1 className="text-2xl font-bold text-gray-900">Subjects</h1>
         </div>
         <button
           onClick={() => setShowManager(true)}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
           Manage Subjects
@@ -80,7 +80,7 @@ export default function Subjects() {
         {subjects.map(subject => {
           const weeklyHours = getWeeklyProgress(subject.name);
           const progress = (weeklyHours / subject.goalHoursPerWeek) * 100;
-          
+
           return (
             <div
               key={subject.id}
@@ -127,7 +127,7 @@ export default function Subjects() {
             </p>
             <button
               onClick={() => setShowManager(true)}
-              className="text-indigo-600 hover:text-indigo-700 font-medium"
+              className="text-blue-600 hover:text-indigo-700 font-medium"
             >
               Add your first subject
             </button>

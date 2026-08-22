@@ -31,7 +31,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
 
   const playSound = async (soundName: string) => {
     if (!soundEnabled) return;
-    
+
     const soundMap: Record<string, string> = {
       'timer-start': '/sounds/timer-start.mp3',
       'work-complete': 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
@@ -53,7 +53,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
     try {
       // Pre-load and check if audio can be played
       const audio = new Audio();
-      
+
       // Add error handling for loading
       const loadPromise = new Promise((resolve, reject) => {
         audio.addEventListener('canplaythrough', resolve, { once: true });
@@ -68,7 +68,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
       ]);
 
       audio.volume = volumeMap[soundName] || 0.5;
-      
+
       try {
         await audio.play();
       } catch (error) {
@@ -93,17 +93,17 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
       const audioContext = new AudioContext();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
-      
+
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
-      
+
       oscillator.type = 'sine';
       oscillator.frequency.value = frequency;
       gainNode.gain.value = 0.1;
-      
+
       oscillator.start();
       gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.5);
-      
+
       // Clean up after sound plays
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -148,7 +148,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
       const newCompletedSessions = completedSessions + 1;
       setCompletedSessions(newCompletedSessions);
       onSessionComplete(settings.workMinutes);
-      
+
       if (newCompletedSessions % settings.sessionsUntilLongBreak === 0) {
         setTime(settings.longBreakMinutes * 60);
         playSound('work-complete');
@@ -181,7 +181,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
         </div>
       );
     }
-    
+
     setIsWorkPeriod(!isWorkPeriod);
   }, [isWorkPeriod, completedSessions, settings, onSessionComplete, soundEnabled]);
 
@@ -265,8 +265,8 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
               id="workMinutes"
               type="number"
               value={settings.workMinutes}
-              onChange={(e) => setSettings(prev => ({ 
-                ...prev, 
+              onChange={(e) => setSettings(prev => ({
+                ...prev,
                 workMinutes: Math.max(1, Math.min(120, parseInt(e.target.value) || 1))
               }))}
               className="w-full px-3 py-2 border rounded-lg"
@@ -282,8 +282,8 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
               id="breakMinutes"
               type="number"
               value={settings.breakMinutes}
-              onChange={(e) => setSettings(prev => ({ 
-                ...prev, 
+              onChange={(e) => setSettings(prev => ({
+                ...prev,
                 breakMinutes: Math.max(1, Math.min(30, parseInt(e.target.value) || 1))
               }))}
               className="w-full px-3 py-2 border rounded-lg"
@@ -299,8 +299,8 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
               id="longBreakMinutes"
               type="number"
               value={settings.longBreakMinutes}
-              onChange={(e) => setSettings(prev => ({ 
-                ...prev, 
+              onChange={(e) => setSettings(prev => ({
+                ...prev,
                 longBreakMinutes: Math.max(1, Math.min(60, parseInt(e.target.value) || 1))
               }))}
               className="w-full px-3 py-2 border rounded-lg"
@@ -313,7 +313,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
               setShowSettings(false);
               resetTimer();
             }}
-            className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Save Settings
           </button>
@@ -323,15 +323,14 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
           <div className="text-6xl font-bold text-center mb-8" role="timer" aria-label={`${formatTime(time)} remaining`}>
             {formatTime(time)}
           </div>
-          
+
           <div className="flex justify-center gap-4">
             <button
               onClick={toggleTimer}
-              className={`p-4 rounded-full ${
-                isActive 
-                  ? 'bg-red-100 text-red-600 hover:bg-red-200' 
-                  : 'bg-green-100 text-green-600 hover:bg-green-200'
-              }`}
+              className={`p-4 rounded-full ${isActive
+                ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                : 'bg-green-100 text-green-600 hover:bg-green-200'
+                }`}
               aria-label={isActive ? 'Pause timer' : 'Start timer'}
             >
               {isActive ? <Pause size={24} /> : <Play size={24} />}
