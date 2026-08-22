@@ -2,9 +2,9 @@
 
 > 🚀 An AI-powered study companion to boost productivity, manage tasks, and enhance learning efficiency.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](#)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/Mohammedyouse/studyAssitant)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[Live Demo](https://mohammed-study-assistant.netlify.app)
+[GitHub Repo](https://github.com/Mohammedyouse/StudyAssistantWeb)
+
 
 ---
 
@@ -39,8 +39,9 @@
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/Mohammedyouse/studyAssitant.git
-cd studyAssitant
+git clone https://github.com/Mohammedyouse/StudyAssistantWeb.git
+cd StudyAssistantWeb
+
 ```
 
 ### 2️⃣ Install dependencies
@@ -72,15 +73,15 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-studyAssitant/
+StudyAssistantWeb/
 ├── public/
 ├── src/
 │   ├── components/
 │   ├── pages/
 │   ├── contexts/
-│   ├── utils/
-│   └── types.ts
-├── .env
+│   ├── lib/
+│   └── types/
+├── .env.example
 ├── package.json
 ```
 
@@ -120,15 +121,25 @@ If you find a bug:
 
 ## ⚠️ Disclaimer
 
-This project is based on an open-source project and has been modified and improved.
+This project was developed for educational purposes and explores AI-powered productivity tools using modern web technologies.
 
 ---
 
+## 🚀 Deployment
+
+The application is deployed using Netlify.
+
+Live Demo:
+https://mohammed-study-assistant.netlify.app
+
 ## 👨‍💻 Developer
 
-**Maintained & Modified by:**
-👉 Mohammedyouse
-🔗 https://github.com/Mohammedyouse
+**Mohammed Al-Hajj**
+
+Computer Science & Engineering Student
+
+GitHub:
+https://github.com/Mohammedyouse
 
 ---
 
