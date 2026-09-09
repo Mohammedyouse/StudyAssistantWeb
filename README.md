@@ -2,7 +2,7 @@
 
 > 🚀 An AI-powered study companion to boost productivity, manage tasks, and enhance learning efficiency.
 
-[Live Demo](mohammed-study-assistant.netlify.app)
+[Live Demo](https://mohammed-study-assistant.netlify.app/login)
 [GitHub Repo](https://github.com/Mohammedyouse/StudyAssistantWeb)
 
 
